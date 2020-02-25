@@ -12,8 +12,8 @@ def extract_next_links(url, resp):
         return list()  # return an empty list, as nothing was scraped
     if 606 >= resp.status_code >= 600 or 599 >= resp.status_code >= 400:  # Checking for error response from caching server
         return list()  # return empty list, as nothing was scraped
-    if not resp.text:
-        return list()
+    if resp.status_code == 204:  # if request is valid, but page has no content
+        return list()  # return empty list, as nothing was scraped
 
 
     soup = BeautifulSoup(resp.text, "html.parser")  # parse the raw text
